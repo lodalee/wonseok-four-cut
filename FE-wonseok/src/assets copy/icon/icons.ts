@@ -1,0 +1,13 @@
+export { default as hide } from "./hide.png";
+export { default as key } from "./key.png";
+export { default as mail } from "./mail.png";
+export { default as view } from "./view.png";
+export { default as folder } from "./folder.png";
+export { default as home } from "./home.png";
+export { default as menu } from "./menu.png";
+export { default as picture } from "./picture.png";
+export { default as setting } from "./setting.png";
+export { default as trash } from "./trash.png";
+export { default as rightarrow } from "./rightarrow.png";
+export { default as board } from "./board.png";
+export { default as close } from "./close.png";
