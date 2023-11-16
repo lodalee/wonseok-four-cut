@@ -3,7 +3,7 @@ import {
   ItemMockContainer,
   ItemMockBox,
   ItemWrraper,
-} from "@/style/board/board";
+} from "@/lib/style/board/board";
 
 const BoardListMockItem = () => {
   const Mockcontent = (

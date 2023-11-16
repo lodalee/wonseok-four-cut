@@ -1,6 +1,5 @@
 import { getBoardTopFive, getUserTopFive } from "@/api/get";
-import { eleven, eun, hyun, soon } from "@/assets/img";
-import Carousel from "@/components/home/caroucel";
+// import Carousel from "@/components/home/caroucel";
 import Previewlist from "@/components/home/previewlist";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { userLogOut } from "@/store/slice/userSlice";
@@ -12,21 +11,21 @@ const MainContainer = styled.div`
   height: 100%;
   padding: 10px;
 `;
-const WantedImg = [eun, hyun, soon, eleven];
+// const WantedImg = [eun, hyun, soon, eleven];
 
 const Main = () => {
   // 이미지 갤러리 , 보드 리스트 프리패치
   const {
     data: BoardTopfiveData,
     isError: BoardTopfiveError,
-    isLoading: BoardTopfiveLoading,
-    isFetching: BoardTopfiveIsFetching,
+    // isLoading: BoardTopfiveLoading,
+    // isFetching: BoardTopfiveIsFetching,
   } = useQuery("getboardTopFive", getBoardTopFive);
   const {
     data: UserTopfiveData,
     isError: UserTopfiveError,
-    isLoading: UserTopfiveLoading,
-    isFetching: UserTopfiveIsFetching,
+    // isLoading: UserTopfiveLoading,
+    // isFetching: UserTopfiveIsFetching,
   } = useQuery("getuserTopFive", getUserTopFive);
 
   const dispatch = useAppDispatch();
@@ -36,7 +35,7 @@ const Main = () => {
   }
   return (
     <MainContainer>
-      <Carousel images={WantedImg} />
+      {/* <Carousel images={WantedImg} /> */}
       {BoardTopfiveData && UserTopfiveData && (
         <>
           <Previewlist title={"내 갤러리"} list={UserTopfiveData} />

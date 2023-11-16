@@ -4,12 +4,11 @@ import { userLogOut } from "@/store/slice/userSlice";
 import {
   BoardDetailContainer,
   ModalContainer,
-} from "@/style/detail/boarddetail";
-import { Modal } from "@/util/modal";
+} from "@/lib/style/detail/boarddetail";
+import { Modal } from "@/lib/util/ui/modal";
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 
 const BoardDetail = () => {
   const { boardId } = useParams();

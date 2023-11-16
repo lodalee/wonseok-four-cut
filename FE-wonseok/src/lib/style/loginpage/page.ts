@@ -34,6 +34,7 @@ export const LoginContainer = styled.div<BackgroundProps>`
       position: relative;
       a {
         max-width: 120px;
+        font-size: 22px;
         margin-bottom: 60px;
         text-decoration: none;
         color: #fff;

@@ -1,9 +1,9 @@
 import { server } from "@/api/server";
 import useImageSelect from "@/hooks/useImageSelect";
 import useInput from "@/hooks/useInput";
-import { UploadContainer } from "@/style/upload/upload";
-import { Button, Input } from "@/util";
-import Spinner from "@/util/spinner";
+import { UploadContainer } from "@/lib/style/upload/upload";
+import { Button, Input } from "@/lib/util/ui";
+import Spinner from "@/lib/util/ui/spinner";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,8 +12,13 @@ const Upload = () => {
   const [content, onChangeContentValue] = useInput();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { inputRef, onUploadImage, onUploadImageButtonClick, previewImage, setPreviewImage } =
-    useImageSelect();
+  const {
+    inputRef,
+    onUploadImage,
+    onUploadImageButtonClick,
+    previewImage,
+    setPreviewImage,
+  } = useImageSelect();
   const onUploadToServerButtonClick = useCallback(async () => {
     setLoading(true);
     if (!inputRef.current?.files?.[0]) {
@@ -49,7 +54,12 @@ const Upload = () => {
     <UploadContainer previewImage={!!previewImage}>
       <div className="uploaddiv">
         <div className="pictureContainer">
-          <input type="file" ref={inputRef} onChange={onUploadImage} style={{ display: "none" }} />
+          <input
+            type="file"
+            ref={inputRef}
+            onChange={onUploadImage}
+            style={{ display: "none" }}
+          />
           {previewImage ? (
             <>
               <div className="delbtn">
@@ -95,7 +105,12 @@ const Upload = () => {
             title={
               <>
                 {loading ? (
-                  <Spinner borderSize={3} color="white" size={18} spinColor="gray" />
+                  <Spinner
+                    borderSize={3}
+                    color="white"
+                    size={18}
+                    spinColor="gray"
+                  />
                 ) : (
                   "업로드"
                 )}

@@ -1,10 +1,10 @@
 import { menu, setting } from "@/assets/icon/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { userLogOut, userSet } from "@/store/slice/userSlice";
-import { HeaderContainer } from "@/style/layoutstyle/layout";
-import { Button } from "@/util";
-import Icon from "@/util/icon";
-import { useNavigate } from "react-router-dom";
+import { userLogOut } from "@/store/slice/userSlice";
+import { HeaderContainer } from "@/lib/style/layoutstyle/layout";
+import { Button } from "@/lib/util/ui";
+import Icon from "@/lib/util/ui/icon";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export const Avatar = styled.div`
@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const { setSidebar } = props;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.user.id);
+  const user = useAppSelector((state) => Boolean(state.user.token));
   return (
     <HeaderContainer>
       <div className="header-wrraper">
@@ -47,31 +47,46 @@ const Header: React.FC<HeaderProps> = (props) => {
             />
           </div>
           <div className="logo">
-            <a className="logo-tag">11조 프로젝트</a>
+            <Link to={"main"} className="logo-tag">
+              원석네컷
+            </Link>
           </div>
         </div>
         <div className="center-wrraper"></div>
         <div className="right-wrraper">
-          <div className="icon-container">
-            <Icon src={setting} alt="asd" className={"icon"} />
-          </div>
-          <div className="addpicture-btn">
-            <Button
-              color="custom"
-              size="small"
-              title={<p className="btn-p">이미지업로드</p>}
-              onClick={() => navigate("/gallery/upload")}
-            />
-          </div>
-          <Avatar
-            onClick={() => {
-              dispatch(userLogOut());
-            }}
-          >
-            {/* <p>{user.split("@")[1].charAt(0)}</p> */}
+          {!user ? (
+            <div className="addpicture-btn">
+              <Button
+                color="custom"
+                size="small"
+                title={<p className="btn-p">로그인</p>}
+                onClick={() => navigate("/")}
+              />
+            </div>
+          ) : (
+            <>
+              <div className="icon-container">
+                <Icon src={setting} alt="asd" className={"icon"} />
+              </div>
+              <div className="addpicture-btn">
+                <Button
+                  color="custom"
+                  size="small"
+                  title={<p className="btn-p">이미지업로드</p>}
+                  onClick={() => navigate("/gallery/upload")}
+                />
+              </div>
+              <Avatar
+                onClick={() => {
+                  dispatch(userLogOut());
+                }}
+              >
+                {/* <p>{user.split("@")[1].charAt(0)}</p> */}
 
-            {/* <img src="" alt="asd" className="avatar" /> */}
-          </Avatar>
+                {/* <img src="" alt="asd" className="avatar" /> */}
+              </Avatar>
+            </>
+          )}
         </div>
       </div>
     </HeaderContainer>

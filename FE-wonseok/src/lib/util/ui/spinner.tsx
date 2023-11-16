@@ -31,6 +31,13 @@ interface SpinnerProp extends SpinnerStyleProp {}
 
 const Spinner: React.FC<SpinnerProp> = (props) => {
   const { size, borderSize, color, spinColor } = props;
-  return <LodingSpinner borderSize={borderSize} color={color} spinColor={spinColor} size={size} />;
+  return (
+    <LodingSpinner
+      borderSize={borderSize}
+      color={color}
+      spinColor={spinColor}
+      size={size}
+    />
+  );
 };
 export default Spinner;

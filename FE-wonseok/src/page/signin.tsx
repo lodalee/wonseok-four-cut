@@ -3,10 +3,10 @@ import { hide, key, mail, view } from "@/assets/icon/icons";
 import useInput from "@/hooks/useInput";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { userSet } from "@/store/slice/userSlice";
-import { SignInContainer } from "@/style/loginpage/signin";
-import { Button, Input } from "@/util";
-import Icon from "@/util/icon";
-import Spinner from "@/util/spinner";
+import { SignInContainer } from "@/lib/style/loginpage/signin";
+import { Button, Input } from "@/lib/util/ui";
+import Icon from "@/lib/util/ui/icon";
+import Spinner from "@/lib/util/ui/spinner";
 import { useState, FormEvent, useCallback } from "react";
 import { Link } from "react-router-dom";
 
@@ -26,7 +26,9 @@ const SignIn = () => {
       setIsLoading(true);
       await signin({ password: passwordValue, username: emailValue })
         .then(() => {
-          dispatch(userSet({ id: emailValue, nickname: passwordValue, token: "asd" }));
+          dispatch(
+            userSet({ id: emailValue, nickname: passwordValue, token: "asd" })
+          );
         })
         .catch((err) => {
           if (typeof err.response.data.message === "string") {
@@ -43,7 +45,11 @@ const SignIn = () => {
   const signContent = (
     <SignInContainer>
       <h2 className="signin-h2">로그인</h2>
-      <form onSubmit={onSigninHandler} className="signin-form" autoComplete="off">
+      <form
+        onSubmit={onSigninHandler}
+        className="signin-form"
+        autoComplete="off"
+      >
         <div className="signin-email-container">
           <label htmlFor="email" className="signin-label">
             이메일 *
@@ -83,9 +89,17 @@ const SignIn = () => {
             {passwordValue.length > 0 && (
               <>
                 {onView ? (
-                  <img className="icon-hide" src={hide} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={hide}
+                    onClick={onViewHandler}
+                  />
                 ) : (
-                  <img className="icon-hide" src={view} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={view}
+                    onClick={onViewHandler}
+                  />
                 )}
               </>
             )}
@@ -96,7 +110,12 @@ const SignIn = () => {
           size="custom"
           title={
             isLoading ? (
-              <Spinner borderSize={4} color="#5585E8" size={20} spinColor="blue" />
+              <Spinner
+                borderSize={4}
+                color="#5585E8"
+                size={20}
+                spinColor="blue"
+              />
             ) : (
               <>로그인</>
             )

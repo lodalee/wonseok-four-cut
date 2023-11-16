@@ -13,15 +13,15 @@ import { LoginLayout, MainLayout } from "@/layout";
 import NotAuthRoutes from "./authRoute";
 import ProtectedRoutes from "./protectRoute";
 import ErrorPage from "./404";
-import { useAppSelector } from "@/hooks/useRedux";
 import BoardDetail from "@/page/boarddetail";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const Nav = () => {
   const user = useAppSelector((state) => Boolean(state.user.token));
   return (
     <Routes>
       {/* NotAuth */}
-      <Route element={<NotAuthRoutes user={true} />}>
+      <Route element={<NotAuthRoutes user={user} />}>
         <Route path="/" element={<LoginLayout />}>
           <Route index element={<SignIn />} />
           <Route path="/register" element={<Register />} />
@@ -30,18 +30,14 @@ const Nav = () => {
 
       <Route path={"/*"} element={<ErrorPage />} />
 
-      {/* 개인정보가 담긴 요청은 헤더 쿠키에 토큰이 담겨서 요청이되는데 만약에 시간이 지나서 쿠키에 토큰이 없으면
-      500에러를 반환하게 500에러를 반환하면 dispatch를 통해서 
-    */}
-
       {/* yesAuth */}
-      <Route element={<ProtectedRoutes user={true} />}>
-        <Route element={<MainLayout />}>
-          <Route path="/main" element={<Main />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/gallery/:id" element={<Detail />} />
-          <Route path="/board" element={<Board />} />
-          <Route path="/board/:boardId" element={<BoardDetail />} />
+      <Route element={<MainLayout />}>
+        <Route path="/main" element={<Main />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/:id" element={<Detail />} />
+        <Route path="/board" element={<Board />} />
+        <Route path="/board/:boardId" element={<BoardDetail />} />
+        <Route element={<ProtectedRoutes user={user} />}>
           <Route path="/setting" element={<Setting />} />
           <Route path="/gallery/upload" element={<Upload />} />
         </Route>

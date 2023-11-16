@@ -5,9 +5,9 @@ import useInput from "@/hooks/useInput";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import ErrorPage from "@/routes/404";
 import { userLogOut } from "@/store/slice/userSlice";
-import { DetailContainer } from "@/style/detail/detail";
-import { Button, Icon, Input } from "@/util";
-import Spinner from "@/util/spinner";
+import { DetailContainer } from "@/lib/style/detail/detail";
+import { Button, Icon, Input } from "@/lib/util/ui";
+import Spinner from "@/lib/util/ui/spinner";
 import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,7 +19,9 @@ const Detail = () => {
     data: images,
     isSuccess,
     isError,
-  } = useQuery(["imageDetail", id], () => getDetailBoard(id), { keepPreviousData: true });
+  } = useQuery(["imageDetail", id], () => getDetailBoard(id), {
+    keepPreviousData: true,
+  });
 
   const navigate = useNavigate();
   const [title, onChangeTitle, setTitle] = useInput();
@@ -49,7 +51,7 @@ const Detail = () => {
           navigate("/gallery");
         }
       })
-      .catch((err) => {
+      .catch(() => {
         alert("오류발생");
       })
       .finally(() => setDelLoading(false));
@@ -76,7 +78,7 @@ const Detail = () => {
     setUpdateFormToggle(false);
   };
 
-  if (error) {
+  if (isError) {
     return <ErrorPage />;
   }
   return (
@@ -97,13 +99,21 @@ const Detail = () => {
             {user === images.username && (
               <div className="usersetting">
                 {!updateFormToggle && (
-                  <div className="button" onClick={() => setUpdateFormToggle(true)}>
+                  <div
+                    className="button"
+                    onClick={() => setUpdateFormToggle(true)}
+                  >
                     수정
                   </div>
                 )}
                 <div className="button" onClick={deleteButtonHandler}>
                   {delLoading ? (
-                    <Spinner color="#000" spinColor="gray" size={15} borderSize={2} />
+                    <Spinner
+                      color="#000"
+                      spinColor="gray"
+                      size={15}
+                      borderSize={2}
+                    />
                   ) : (
                     "삭제"
                   )}
@@ -137,7 +147,12 @@ const Detail = () => {
                     title={
                       <>
                         {updateLoading ? (
-                          <Spinner color="#000" spinColor="gray" size={15} borderSize={2} />
+                          <Spinner
+                            color="#000"
+                            spinColor="gray"
+                            size={15}
+                            borderSize={2}
+                          />
                         ) : (
                           "완료"
                         )}
