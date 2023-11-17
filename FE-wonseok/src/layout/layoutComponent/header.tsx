@@ -31,7 +31,9 @@ const Header: React.FC<HeaderProps> = (props) => {
   const { setSidebar } = props;
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => Boolean(state.user.token));
+  const user = useAppSelector((state) =>
+    Boolean(state.user.tokens.accessToken)
+  );
   return (
     <HeaderContainer>
       <div className="header-wrraper">

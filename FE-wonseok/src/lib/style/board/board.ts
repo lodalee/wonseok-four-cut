@@ -13,6 +13,12 @@ const GetGalleryListContainer = styled.div`
   }
 `;
 
+const BoardContainer = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+`;
+
 const Skeleton = keyframes`
     0% {
       background-color: rgba(165, 165, 165, 0.3);
@@ -39,7 +45,6 @@ const ItemMockWrraper = styled.div<ThemeProps>`
 
 const BoardItemMockContainer = styled.div`
   display: flex;
-  flex-direction: column;
   width: 100%;
   height: 100%;
   padding: 5px 5px;
@@ -180,4 +185,5 @@ export {
   ItemMockContainer,
   ItemMockWrraper,
   Avatar,
+  BoardContainer,
 };

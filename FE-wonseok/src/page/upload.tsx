@@ -1,4 +1,4 @@
-import { server } from "@/api/server";
+import { serverUser } from "@/api/server";
 import useImageSelect from "@/hooks/useImageSelect";
 import useInput from "@/hooks/useInput";
 import { UploadContainer } from "@/lib/style/upload/upload";
@@ -34,7 +34,7 @@ const Upload = () => {
     formData.append("title", title);
     formData.append("content", content);
 
-    await server
+    await serverUser
       .post("/api/boards", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
