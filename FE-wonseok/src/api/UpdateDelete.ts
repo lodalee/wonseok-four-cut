@@ -1,11 +1,11 @@
 import { DelMyBoard } from "@/lib/types/response";
-import { server } from "./server";
+import { serverUser } from "./server";
 import { AxiosResponse } from "axios";
 
 export const deleteBoard = async (
   boardId: string
 ): Promise<AxiosResponse<DelMyBoard>> => {
-  const response = await server.delete(`/api/boards/${boardId}`);
+  const response = await serverUser.delete(`/api/boards/${boardId}`);
   return response;
 };
 export const updateBoard = async (
@@ -17,7 +17,7 @@ export const updateBoard = async (
   }
 ): Promise<AxiosResponse> => {
   console.log(data);
-  const response = await server.put(
+  const response = await serverUser.put(
     `/api/boards/${boardId}`,
     {
       ...data,

@@ -1,7 +1,11 @@
-import { server } from "./server";
+import { serverBase, serverUser } from "./server";
 
 export const upload = async () => {
-  const response = await server.post("/api/boards", {}, { withCredentials: true });
+  const response = await serverUser.post(
+    "/api/boards",
+    {},
+    { withCredentials: true }
+  );
   return response;
 };
 
@@ -14,9 +18,16 @@ type signInProp = {
   password: string;
 };
 
+export const signupSocial = async (code: string, state: string) => {
+  const response = await serverBase.post(`${state}`, {
+    code,
+  });
+  return response;
+};
+
 export const signup = async (params: signUpProp) => {
   const { username, password } = params;
-  const response = await server.post("/api/user/signup", {
+  const response = await serverUser.post("/api/user/signup", {
     username: `${username}`,
     password: `${password}`,
   });
@@ -24,7 +35,7 @@ export const signup = async (params: signUpProp) => {
 };
 export const signin = async (params: signInProp) => {
   const { username, password } = params;
-  const response = await server.post(
+  const response = await serverUser.post(
     "/api/user/login",
     {
       username: `${username}`,
