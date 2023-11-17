@@ -1,7 +1,5 @@
-import styled from "styled-components";
 import PreviewMockup from "./previewMockup";
-import { ThemeProps } from "@/lib/style/theme";
-import { PreviewContainer, ItemContainer } from "@/lib/style/main/home";
+import { PreviewContainer } from "@/lib/style/main/home";
 import { MyBoardList } from "@/lib/types/response";
 import BoardListItem from "../board/borderlistitem";
 
