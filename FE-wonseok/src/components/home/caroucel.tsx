@@ -1,4 +1,8 @@
-import { CarouselWrapper, CarouselSlide, CarouselItem } from "@/style/main/home";
+import {
+  CarouselWrapper,
+  CarouselSlide,
+  CarouselItem,
+} from "@/lib/style/main/home";
 import { useEffect, useRef } from "react";
 
 interface CaroucelProp {
@@ -60,7 +64,11 @@ const MyCarousel: React.FC<CaroucelProp> = (props) => {
             </CarouselItem>
           ))}
           <CarouselItem>
-            <img src={images[0]} alt={`carousel_item_0`} style={{ width: "100%" }} />
+            <img
+              src={images[0]}
+              alt={`carousel_item_0`}
+              style={{ width: "100%" }}
+            />
           </CarouselItem>
         </CarouselSlide>
       </CarouselWrapper>

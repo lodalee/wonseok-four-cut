@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import PreviewMockup from "./previewMockup";
-import { ThemeProps } from "@/style/theme";
-import { PreviewContainer, ItemContainer } from "@/style/main/home";
-import { MyBoardList } from "@/types/response";
+import { ThemeProps } from "@/lib/style/theme";
+import { PreviewContainer, ItemContainer } from "@/lib/style/main/home";
+import { MyBoardList } from "@/lib/types/response";
 import BoardListItem from "../board/borderlistitem";
 
 interface PreviewList {

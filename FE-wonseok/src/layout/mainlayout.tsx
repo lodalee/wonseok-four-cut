@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Sidebar from "./layoutComponent/sidebar";
 import { CSSTransition, SwitchTransition } from "react-transition-group";
 import useSidebarClose from "@/hooks/useSidebarClose";
-import { LayoutContainer, ContentLayout } from "@/style/layoutstyle/layout";
+import { LayoutContainer, ContentLayout } from "@/lib/style/layoutstyle/layout";
 
 const MainLayout = () => {
   const widowWidth = useSidebarClose();
@@ -21,7 +21,12 @@ const MainLayout = () => {
       <ContentLayout>
         {sidebar && <Sidebar />}
         <SwitchTransition>
-          <CSSTransition nodeRef={nodeRef} key={location.key} timeout={300} classNames="page">
+          <CSSTransition
+            nodeRef={nodeRef}
+            key={location.key}
+            timeout={300}
+            classNames="page"
+          >
             <div className="outlet" ref={nodeRef}>
               {currentOutlet}
             </div>

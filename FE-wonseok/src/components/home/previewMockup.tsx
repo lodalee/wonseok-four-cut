@@ -1,4 +1,4 @@
-import { ItemMockContainer } from "@/style/main/home";
+import { ItemMockContainer } from "@/lib/style/main/home";
 import { v4 as uuidv4 } from "uuid";
 
 const PreviewMockup = () => {

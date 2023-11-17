@@ -1,5 +1,9 @@
-import { GalleryItemContainer, ItemWrraper, ItemBox } from "@/style/gallery/gallery";
-import { Board } from "@/types/response";
+import {
+  GalleryItemContainer,
+  ItemWrraper,
+  ItemBox,
+} from "@/lib/style/gallery/gallery";
+import { Board } from "@/lib/types/response";
 import { useNavigate } from "react-router-dom";
 
 const GalleryListItem: React.FC<Board> = (props) => {
@@ -12,7 +16,11 @@ const GalleryListItem: React.FC<Board> = (props) => {
     <ItemWrraper>
       <GalleryItemContainer>
         <ItemBox>
-          <img src={uploadImage.storeFileName} alt="aa" onClick={onDetailsPageNavigate} />
+          <img
+            src={uploadImage.storeFileName}
+            alt="aa"
+            onClick={onDetailsPageNavigate}
+          />
         </ItemBox>
       </GalleryItemContainer>
     </ItemWrraper>

@@ -1,8 +1,10 @@
-import { DelMyBoard } from "@/types/response";
+import { DelMyBoard } from "@/lib/types/response";
 import { server } from "./server";
 import { AxiosResponse } from "axios";
 
-export const deleteBoard = async (boardId: string): Promise<AxiosResponse<DelMyBoard>> => {
+export const deleteBoard = async (
+  boardId: string
+): Promise<AxiosResponse<DelMyBoard>> => {
   const response = await server.delete(`/api/boards/${boardId}`);
   return response;
 };

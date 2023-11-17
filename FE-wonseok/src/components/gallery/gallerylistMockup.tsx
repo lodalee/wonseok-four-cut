@@ -3,7 +3,7 @@ import {
   ItemMockContainer,
   ItemMockBox,
   ItemWrraper,
-} from "@/style/gallery/gallery";
+} from "@/lib/style/gallery/gallery";
 
 const GalleryListMockItem = () => {
   const Mockcontent = (

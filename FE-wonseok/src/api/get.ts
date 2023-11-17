@@ -1,8 +1,10 @@
-import { AxiosResponse } from "axios";
-import { getCookie, server } from "./server";
-import { Board, MyBoardList, UserBoardDetails, UsersBoardList } from "@/types/response";
-
-const token = getCookie("Authorization");
+// import { AxiosResponse } from "axios";
+import { server } from "./server";
+import {
+  MyBoardList,
+  UserBoardDetails,
+  UsersBoardList,
+} from "@/lib/types/response";
 
 export const getEveryGet = async (): Promise<UsersBoardList> => {
   const response = await server.get("/api/boards");
@@ -21,7 +23,9 @@ export const getUserTopFive = async (): Promise<MyBoardList> => {
   return response.data;
 };
 
-export const getDetailBoard = async (boardId: string): Promise<UserBoardDetails> => {
+export const getDetailBoard = async (
+  boardId: string
+): Promise<UserBoardDetails> => {
   const response = await server.get(`/api/boards/${boardId}`);
   return response.data;
 };

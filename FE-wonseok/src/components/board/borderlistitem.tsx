@@ -4,8 +4,8 @@ import {
   ItemBox,
   ItemContainer,
   ItemWrraper,
-} from "@/style/board/board";
-import { DateTime, UsersBoard } from "@/types/response";
+} from "@/lib/style/board/board";
+import { DateTime, UsersBoard } from "@/lib/types/response";
 import { useNavigate } from "react-router-dom";
 
 const BoardListItem: React.FC<UsersBoard> = (props) => {

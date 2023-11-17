@@ -2,7 +2,7 @@ import styled from "styled-components";
 import GalleryListMockItem from "./gallerylistMockup";
 import { useQuery } from "react-query";
 import { getUserGet } from "@/api/get";
-import { MyBoardList } from "@/types/response";
+import { MyBoardList } from "@/lib/types/response";
 import GalleryListItem from "./gallerylistItem";
 import { v4 as uuidv4 } from "uuid";
 import { useAppDispatch } from "@/hooks/useRedux";
@@ -33,7 +33,11 @@ const GetGalleryList = () => {
   return (
     <GetGalleryListContainer>
       <div className="listPostContainer">
-        {data ? data.map((item) => <GalleryListItem key={item.id} {...item} />) : <MockUpcontent />}
+        {data ? (
+          data.map((item) => <GalleryListItem key={item.id} {...item} />)
+        ) : (
+          <MockUpcontent />
+        )}
       </div>
     </GetGalleryListContainer>
   );

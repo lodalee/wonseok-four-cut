@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { getEveryGet } from "@/api/get";
 import BoardListMockItem from "./boardlistMockup";
 import BoardListItem from "./borderlistitem";
-import { GetGalleryListContainer } from "@/style/board/board";
+import { GetGalleryListContainer } from "@/lib/style/board/board";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { userLogOut } from "@/store/slice/userSlice";
 
@@ -24,7 +24,11 @@ const GetBoardList = () => {
   return (
     <GetGalleryListContainer>
       <div className="listPostContainer">
-        {data ? data.map((item) => <BoardListItem key={item.id} {...item} />) : <MockUpcontent />}
+        {data ? (
+          data.map((item) => <BoardListItem key={item.id} {...item} />)
+        ) : (
+          <MockUpcontent />
+        )}
       </div>
     </GetGalleryListContainer>
   );

@@ -9,22 +9,40 @@ type DateTime = [
   hour: number,
   minute: number,
   second: number,
-  millisecond: number,
+  millisecond: number
 ];
 
 interface Board {
   id: number;
   title: string;
-  username: string;
+  user: UserInterface;
   createdAt: DateTime;
   modifiedAt: DateTime;
   uploadImage: UploadImage;
 }
 
+interface UserInterface {
+  id: number;
+  userImg: {
+    Imageid: number;
+    ImageUrl: string;
+  };
+  username: string;
+}
+
+interface LoginUserInterface extends UserInterface {
+  token: string | null; // 우리 서버
+  tokens?: {
+    kakao?: string | null; // 카카오
+    google?: string | null; //구글
+    naver?: string | null; // 네이버
+  };
+}
+
 interface UsersBoard {
   id: number;
   title: string;
-  username: string;
+  user: UserInterface;
   content: string;
   createdAt: DateTime;
   modifiedAt: DateTime;
@@ -33,7 +51,7 @@ interface UsersBoard {
 
 interface Comment {
   id: number;
-  username: string;
+  user: UserInterface;
   createdAt: DateTime;
   modifiedAt: DateTime;
   content: string;
@@ -71,4 +89,6 @@ export type {
   Post,
   Comment,
   UserBoardDetails,
+  UserInterface,
+  LoginUserInterface,
 };

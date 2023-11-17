@@ -1,12 +1,10 @@
 import { signup } from "@/api/post";
 import { mail, key, hide, view } from "@/assets/icon/icons";
 import useInput from "@/hooks/useInput";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { userLogOut } from "@/store/slice/userSlice";
-import { SignInContainer } from "@/style/loginpage/signin";
-import { Input, Button } from "@/util";
-import Icon from "@/util/icon";
-import Spinner from "@/util/spinner";
+import { SignInContainer } from "@/lib/style/loginpage/signin";
+import { Input, Button } from "@/lib/util/ui";
+import Icon from "@/lib/util/ui/icon";
+import Spinner from "@/lib/util/ui/spinner";
 import { useState, FormEvent, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,16 +16,16 @@ const Register = () => {
   const [signLoading, setSignLoading] = useState(false);
   const [, setErrorMessage] = useState("");
   const navigate = useNavigate();
-  const validateEmail = (email: string) => {
-    var re =
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  };
+  // const validateEmail = (email: string) => {
+  //   const re =
+  //     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  //   return re.test(String(email).toLowerCase());
+  // };
 
-  const validatePassword = (password: string) => {
-    var re = /[\s\W]/;
-    return !re.test(String(password));
-  };
+  // const validatePassword = (password: string) => {
+  //   const re = /[\s\W]/;
+  //   return !re.test(String(password));
+  // };
   const onViewHandler = () => {
     setOnview(!onView);
   };
@@ -76,7 +74,11 @@ const Register = () => {
         <h2 className="signin-h2">회원가입</h2>
         <p onClick={() => navigate(-1)}>뒤로가기</p>
       </div>
-      <form onSubmit={onSigninHandler} className="signin-form" autoComplete="off">
+      <form
+        onSubmit={onSigninHandler}
+        className="signin-form"
+        autoComplete="off"
+      >
         <div className="signin-email-container">
           <label htmlFor="email" className="signin-label">
             이메일 *
@@ -116,9 +118,17 @@ const Register = () => {
             {passwordValue.length > 0 && (
               <>
                 {onView ? (
-                  <img className="icon-hide" src={hide} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={hide}
+                    onClick={onViewHandler}
+                  />
                 ) : (
-                  <img className="icon-hide" src={view} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={view}
+                    onClick={onViewHandler}
+                  />
                 )}
               </>
             )}
@@ -145,9 +155,17 @@ const Register = () => {
             {retryPasswordValue.length > 0 && (
               <>
                 {onView ? (
-                  <img className="icon-hide" src={hide} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={hide}
+                    onClick={onViewHandler}
+                  />
                 ) : (
-                  <img className="icon-hide" src={view} onClick={onViewHandler} />
+                  <img
+                    className="icon-hide"
+                    src={view}
+                    onClick={onViewHandler}
+                  />
                 )}
               </>
             )}
@@ -159,7 +177,12 @@ const Register = () => {
           title={
             <>
               {signLoading ? (
-                <Spinner borderSize={3} color="white" size={18} spinColor="gray" />
+                <Spinner
+                  borderSize={3}
+                  color="white"
+                  size={18}
+                  spinColor="gray"
+                />
               ) : (
                 "완료"
               )}

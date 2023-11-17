@@ -1,8 +1,8 @@
 import { Avatar } from "./header";
 import { Link, useLocation } from "react-router-dom";
 import { board, home, picture, trash } from "@/assets/icon/icons";
-import { Icon } from "@/util";
-import { SidebarContainer } from "@/style/layoutstyle/layout";
+import { Icon } from "@/lib/util/ui";
+import { SidebarContainer } from "@/lib/style/layoutstyle/layout";
 import { useAppSelector } from "@/hooks/useRedux";
 
 const Sidebar = () => {
