@@ -9,13 +9,13 @@ import java.util.Date;
 
 @Getter
 @Setter
-public class SocialLoginResponseDto {
+public class LoginResponseDto {
     private String msg;
     private UserResponseDto user;
     private LoginData data;
 
 
-    public SocialLoginResponseDto(
+    public LoginResponseDto(
             String msg,
             String nickname,
             String email,
