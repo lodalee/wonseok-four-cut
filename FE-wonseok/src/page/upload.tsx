@@ -1,6 +1,7 @@
-import { serverUser } from "@/api/server";
+import { upload } from "@/api/post";
 import useImageSelect from "@/hooks/useImageSelect";
 import useInput from "@/hooks/useInput";
+import { useAppSelector } from "@/hooks/useRedux";
 import { UploadContainer } from "@/lib/style/upload/upload";
 import { Button, Input } from "@/lib/util/ui";
 import Spinner from "@/lib/util/ui/spinner";
@@ -11,6 +12,7 @@ const Upload = () => {
   const [title, onChangeTitleValue] = useInput();
   const [content, onChangeContentValue] = useInput();
   const [loading, setLoading] = useState(false);
+  const token = useAppSelector((state) => state.user.tokens.accessToken);
   const navigate = useNavigate();
   const {
     inputRef,
@@ -19,35 +21,44 @@ const Upload = () => {
     previewImage,
     setPreviewImage,
   } = useImageSelect();
+
   const onUploadToServerButtonClick = useCallback(async () => {
     setLoading(true);
+
     if (!inputRef.current?.files?.[0]) {
       alert("이미지가없어요");
       return setLoading(false);
     }
+
     if (!title || !content) {
       alert("빈칸을 채워주세요!");
       return setLoading(false);
     }
-    const formData = new FormData();
-    formData.append("image", inputRef.current.files[0]);
-    formData.append("title", title);
-    formData.append("content", content);
 
-    await serverUser
-      .post("/api/boards", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      })
-      .then(() => {
-        navigate("/gallery");
-      })
-      .catch(() => {
-        alert("실패");
-      })
-      .finally(() => setLoading(false));
+    const post = {
+      title,
+      content,
+    };
+
+    const formData = new FormData();
+    formData.append("photos", inputRef.current.files[0]);
+    formData.append(
+      "board",
+      new Blob([JSON.stringify(post)], { type: "application/json" })
+    );
+
+    try {
+      const response = await upload(formData, token);
+      if (response.status === 200) {
+        alert(response.data.message);
+        return navigate("/gallery");
+      }
+    } catch (error) {
+      console.log(error);
+      alert("실패");
+    } finally {
+      setLoading(false);
+    }
   }, [title, content]);
 
   return (

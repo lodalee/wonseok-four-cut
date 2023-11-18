@@ -1,27 +1,24 @@
-import PreviewMockup from "./previewMockup";
+// import PreviewMockup from "./previewMockup";
 import { PreviewContainer } from "@/lib/style/main/home";
-import { MyBoardList } from "@/lib/types/response";
+// import { MyBoardList } from "@/lib/types/response";
 import BoardListItem from "../board/borderlistitem";
+import { getBoardTopFive } from "@/api/get";
+import { useQuery } from "react-query";
 
-interface PreviewList {
-  list?: MyBoardList;
-  title: string;
-}
-
-const Previewlist: React.FC<PreviewList> = (props) => {
-  const { list, title } = props;
+const Previewlist = () => {
+  const {
+    data: list,
+    // isLoading: BoardTopfiveLoading,
+    // isFetching: BoardTopfiveIsFetching,
+  } = useQuery("getboardTopFive", getBoardTopFive, { suspense: true });
   const content = (
     <PreviewContainer>
-      <div className="preview-logo">{title}</div>
+      <div className="preview-logo">{"전체 게시물"}</div>
       <div className="preview-list">
         <div className="list-view-container">
-          {list ? (
-            list?.map((e) => <BoardListItem {...e} key={e.id} />)
-          ) : (
-            <>
-              <PreviewMockup />
-            </>
-          )}
+          {list?.map((e) => (
+            <BoardListItem {...e} key={e.id} />
+          ))}
         </div>
       </div>
     </PreviewContainer>
