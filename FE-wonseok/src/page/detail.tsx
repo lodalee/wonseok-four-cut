@@ -96,7 +96,7 @@ const Detail = () => {
             </div>
           </div>
           <div className="content-wrapper">
-            {user === images.username && (
+            {user === images.nickname && (
               <div className="usersetting">
                 {!updateFormToggle && (
                   <div

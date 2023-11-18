@@ -21,13 +21,19 @@ interface Board {
   uploadImage: UploadImage;
 }
 
-interface UserInterface {
-  id: number;
-  userImg: {
-    Imageid: number;
-    ImageUrl: string;
+interface KaKaoLoginResponse {
+  data: {
+    accessToken: string;
+    expirationDate: string;
   };
-  username: string;
+  msg: string;
+  user: UserInterface;
+}
+
+interface UserInterface {
+  email: string;
+  userImg: string;
+  nickname: string;
 }
 
 interface LoginUserInterface extends UserInterface {
@@ -60,7 +66,7 @@ interface Comment {
 interface Post {
   id: number;
   title: string;
-  username: string;
+  nickname: string;
   content: string;
   createdAt: DateTime;
   modifiedAt: DateTime;
@@ -91,4 +97,5 @@ export type {
   UserBoardDetails,
   UserInterface,
   LoginUserInterface,
+  KaKaoLoginResponse,
 };

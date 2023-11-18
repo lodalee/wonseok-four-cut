@@ -1,8 +1,12 @@
 import axios, { AxiosInstance } from "axios";
 
-export const server: AxiosInstance = axios.create({
+export const serverUser: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_SERVER_ENDPOINT,
   withCredentials: true,
+});
+
+export const serverBase: AxiosInstance = axios.create({
+  baseURL: import.meta.env.VITE_SERVER_ENDPOINT,
 });
 
 export const getCookie = (name: string) => {

@@ -55,7 +55,7 @@ const BoardDetail = () => {
                   board.modifiedAt[2] +
                   "일 "}
               </p>
-              <p className="username">{"작성자 : " + board.username}</p>
+              <p className="username">{"작성자 : " + board.nickname}</p>
             </div>
             <div className="image-Wrraper" onClick={() => setModalToggle(true)}>
               <img

@@ -8,7 +8,19 @@ import { store, persistor } from "./store";
 import theme from "./lib/style/theme";
 
 const Providers = ({ children }: { children: ReactNode }) => {
-  const queryClient = new QueryClient();
+  const queryErrorHandler = (error) => {
+    // toast(`데이터를 가져오지 못했습니다! ${error.message}`);
+    console.log(`데이터를 가져오지 못함!  ${error.message}`);
+  };
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        onError: queryErrorHandler,
+        retry: 0,
+        suspense: true,
+      },
+    },
+  });
 
   return (
     <QueryClientProvider client={queryClient}>

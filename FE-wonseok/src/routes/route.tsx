@@ -15,16 +15,22 @@ import ProtectedRoutes from "./protectRoute";
 import ErrorPage from "./404";
 import BoardDetail from "@/page/boarddetail";
 import { useAppSelector } from "@/hooks/useRedux";
+import SignInMain from "@/page/signinsocial";
+import SocialAuth from "./socialAuth";
 
 const Nav = () => {
-  const user = useAppSelector((state) => Boolean(state.user.token));
+  const user = useAppSelector((state) =>
+    Boolean(state.user.tokens.accessToken)
+  );
   return (
     <Routes>
       {/* NotAuth */}
       <Route element={<NotAuthRoutes user={user} />}>
         <Route path="/" element={<LoginLayout />}>
-          <Route index element={<SignIn />} />
+          <Route index element={<SignInMain />} />
+          <Route path="/signin" element={<SignIn />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/oauth" element={<SocialAuth />} />
         </Route>
       </Route>
 

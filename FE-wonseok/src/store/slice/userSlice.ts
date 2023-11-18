@@ -1,21 +1,22 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface UserState {
-  id: string;
+  email: string;
   nickname: string;
-  token: string | null; // 우리 서버
-  picture?: string | null;
-  tokens?: {
-    kakao?: string | null; // 카카오
-    google?: string | null; //구글
-    naver?: string | null; // 네이버
+  picture: string;
+  tokens: {
+    accessToken: string;
+    expirationDate: string;
   };
 }
 
 const initialState: UserState = {
-  id: null,
+  email: null,
   nickname: null,
-  token: null,
+  tokens: {
+    accessToken: null,
+    expirationDate: null,
+  },
   picture: null,
 };
 
@@ -24,23 +25,18 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     userSet: (state, action: PayloadAction<UserState>) => {
-      const { id, nickname, token, tokens, picture } = action.payload;
-      state.id = id;
+      const { email, nickname, tokens, picture } = action.payload;
+      const { accessToken, expirationDate } = tokens;
+      state.email = email;
       state.nickname = nickname;
-      state.token = token;
+      state.tokens = { accessToken, expirationDate };
       state.picture = picture || null;
-      state.tokens = tokens;
     },
     userLogOut: (state) => {
-      state.id = "";
-      state.nickname = "";
-      state.token = null;
+      state.email = null;
+      state.nickname = null;
       state.picture = null;
-      state.tokens = {
-        google: null,
-        kakao: null,
-        naver: null,
-      };
+      state.tokens = { accessToken: null, expirationDate: null };
     },
   },
   extraReducers: () => {},

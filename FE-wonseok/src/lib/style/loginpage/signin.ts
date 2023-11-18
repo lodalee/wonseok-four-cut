@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const SignInContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   margin: 0 0 15px;
   .h1Space {
     display: flex;
@@ -15,6 +18,9 @@ export const SignInContainer = styled.div`
       }
     }
   }
+  .sign-hr-tag {
+    width: 80%;
+  }
   .signin-h2 {
     margin-bottom: 30px;
     margin-top: 0;
@@ -26,6 +32,9 @@ export const SignInContainer = styled.div`
     .signin-password-container,
     .signin-email-container {
       margin-bottom: 30px;
+    }
+    .login-btn-kakao-btn {
+      cursor: pointer;
     }
     .signin-form {
       margin-bottom: 10px;
