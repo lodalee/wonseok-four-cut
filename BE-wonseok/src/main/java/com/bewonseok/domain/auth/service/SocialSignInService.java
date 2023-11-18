@@ -62,14 +62,13 @@ public class SocialSignInService {
         Optional<User> existingUserOptional = userRepository.findByEmail(email);
 
         if (!existingUserOptional.isPresent()) {  // 만약 DB에 해당 이메일의 사용자가 없다면 회원 가입 진행
-            String nickname = String.valueOf(user.getKakao_account().getProfile().getNickname());  // 카카오 ID를 닉네임으로 설정
+            String nickname = String.valueOf(user.getKakao_account().getProfile().getNickname());
+            String userImg = user.getKakao_account().getProfile().getUserImg();
 
             String password = UUID.randomUUID().toString();  // 임시 비밀번호 생성 (랜덤 UUID)
             String encodedPassword = passwordEncoder.encode(password);  // 비밀번호 암호화
 
-            User newUser = new User(email, nickname, encodedPassword);
-            newUser.setUserProfileImage(user.getKakao_account().getProfile().getUserImg()); // 프로필 이미지 설정
-
+            User newUser = new User(email, nickname, encodedPassword, userImg);
             return userRepository.save(newUser);
         }
         User existingUser = existingUserOptional.get();
