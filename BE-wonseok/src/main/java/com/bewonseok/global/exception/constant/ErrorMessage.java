@@ -8,6 +8,7 @@ public class ErrorMessage {
     public static final String UNABLE_TO_FETCH_KAKAO_USER_INFO = "카카오 유저 정보를 가져올 수 없습니다.";
     public static final String BAD_ACCESS_TOKEN = "잘못된 Access token 입니다.";
     public static final String INVALID_KAKAO_USER = "유효하지 않은 카카오 유저입니다. 이메일 정보가 없습니다.";
+    public static final String SERVER_ERROR = "서버에 문제가 발생했습니다.";
 
     //signup - badRequest
     public static final String EMAIL_NOT_BLANK = "이메일을 입력해주세요.";
@@ -23,4 +24,7 @@ public class ErrorMessage {
     //conflict
     public static final String DUPLICATE_NICKNAME_EXISTS = "중복된 닉네임이 존재합니다.";
     public static final String DUPLICATE_EMAIL_EXISTS = "중복된 이메일이 존재합니다.";
+
+    //user
+    public static final String LOGIN_REQUIRED ="로그인 후에 이용 가능합니다." ;
 }
