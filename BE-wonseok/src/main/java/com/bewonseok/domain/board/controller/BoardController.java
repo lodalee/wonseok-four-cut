@@ -5,6 +5,7 @@ import com.bewonseok.domain.board.service.BoardService;
 import com.bewonseok.domain.user.entity.User;
 import com.bewonseok.global.dto.response.CustomResponseDto;
 import com.bewonseok.global.dto.response.constant.SuccessMessage;
+import com.bewonseok.global.exception.constant.ErrorMessage;
 import com.bewonseok.global.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,17 @@ public class BoardController {
             @AuthenticationPrincipal UserDetailsImpl userDetails
             ) throws IOException {
 
-        User user = userDetails.getUser();
-        boardService.uploadBoard(requestDto, images, user);
-        return new CustomResponseDto(SuccessMessage.BOARD_UPLOAD_SUCCESSFUL, HttpStatus.OK);
+        try {
+            User user = userDetails.getUser();
+            if (user == null){
+                return new CustomResponseDto(ErrorMessage.LOGIN_REQUIRED, HttpStatus.BAD_REQUEST);
+            }
+            boardService.uploadBoard(requestDto, images, user);
+            return new CustomResponseDto(SuccessMessage.BOARD_UPLOAD_SUCCESSFUL, HttpStatus.OK);
+        } catch (Exception e) {
+            // 서버 오류 발생 시 처리 로직
+            return new CustomResponseDto(ErrorMessage.SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     //게시물 수정
