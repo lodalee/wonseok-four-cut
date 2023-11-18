@@ -2,17 +2,17 @@ import { useQuery } from "react-query";
 import { getEveryGet } from "@/api/get";
 import BoardListItem from "./borderlistitem";
 import { GetGalleryListContainer } from "@/lib/style/board/board";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { userLogOut } from "@/store/slice/userSlice";
+// import { useAppDispatch } from "@/hooks/useRedux";
+// import { userLogOut } from "@/store/slice/userSlice";
 
 const GetBoardList = () => {
   const { data, isError } = useQuery("getboard", getEveryGet, {
     suspense: true,
   });
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   if (isError) {
-    dispatch(userLogOut());
+    // dispatch(userLogOut());
   }
   return (
     <GetGalleryListContainer>

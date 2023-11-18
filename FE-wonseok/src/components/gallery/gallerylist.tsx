@@ -3,8 +3,8 @@ import { useQuery } from "react-query";
 import { getUserGet } from "@/api/get";
 import { MyBoardList } from "@/lib/types/response";
 import GalleryListItem from "./gallerylistItem";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { userLogOut } from "@/store/slice/userSlice";
+// import { useAppDispatch } from "@/hooks/useRedux";
+// import { userLogOut } from "@/store/slice/userSlice";
 const GetGalleryListContainer = styled.div`
   .listPostContainer {
     display: flex;
@@ -22,10 +22,10 @@ const GetGalleryList = () => {
     getUserGet,
     { suspense: true }
   );
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   if (isError) {
-    dispatch(userLogOut());
+    // dispatch(userLogOut());
   }
   return (
     <GetGalleryListContainer>
