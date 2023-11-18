@@ -21,6 +21,11 @@ interface Board {
   uploadImage: UploadImage;
 }
 
+interface responseMessage {
+  message: string;
+  status: string;
+}
+
 interface KaKaoLoginResponse {
   data: {
     accessToken: string;
@@ -98,4 +103,5 @@ export type {
   UserInterface,
   LoginUserInterface,
   KaKaoLoginResponse,
+  responseMessage,
 };

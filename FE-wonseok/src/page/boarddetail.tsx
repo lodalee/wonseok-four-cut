@@ -1,6 +1,6 @@
 import { getDetailBoard } from "@/api/get";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { userLogOut } from "@/store/slice/userSlice";
+// import { useAppDispatch } from "@/hooks/useRedux";
+// import { userLogOut } from "@/store/slice/userSlice";
 import {
   BoardDetailContainer,
   ModalContainer,
@@ -21,9 +21,9 @@ const BoardDetail = () => {
     }
   );
   const [modalToggle, setModalToggle] = useState(false);
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   if (isError) {
-    dispatch(userLogOut());
+    // dispatch(userLogOut());
   }
   const mockcontent = (
     <>

@@ -1,20 +1,26 @@
+import { AxiosResponse } from "axios";
 import { serverBase, serverUser } from "./server";
+import { KaKaoLoginResponse, responseMessage } from "@/lib/types/response";
 
-export const upload = async () => {
-  const response = await serverUser.post(
-    "/api/boards",
-    {},
-    { withCredentials: true }
-  );
+export const upload = async (
+  formData: FormData,
+  token: string
+): Promise<AxiosResponse<responseMessage>> => {
+  const response = await serverUser.post("/board", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}aa`,
+    },
+  });
   return response;
 };
 
 type signUpProp = {
-  username: string;
+  email: string;
   password: string;
 };
 type signInProp = {
-  username: string;
+  email: string;
   password: string;
 };
 
@@ -25,21 +31,26 @@ export const signupSocial = async (code: string, state: string) => {
   return response;
 };
 
-export const signup = async (params: signUpProp) => {
-  const { username, password } = params;
-  const response = await serverUser.post("/api/user/signup", {
-    username: `${username}`,
-    password: `${password}`,
+export const signup = async (
+  params: signUpProp
+): Promise<AxiosResponse<responseMessage>> => {
+  const { email, password } = params;
+  const response = await serverUser.post("/user/signup", {
+    email,
+    password,
+    nickname: "은석",
   });
   return response;
 };
-export const signin = async (params: signInProp) => {
-  const { username, password } = params;
+export const signin = async (
+  params: signInProp
+): Promise<AxiosResponse<KaKaoLoginResponse, Error>> => {
+  const { email, password } = params;
   const response = await serverUser.post(
-    "/api/user/login",
+    "/user/login",
     {
-      username: `${username}`,
-      password: `${password}`,
+      email,
+      password,
     },
     { withCredentials: true }
   );
