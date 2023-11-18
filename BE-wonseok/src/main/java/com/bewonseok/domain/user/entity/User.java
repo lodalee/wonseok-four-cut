@@ -24,11 +24,12 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private String userProfileImage;
+    private String userImage;
 
-    public User(String email, String nickname, String password) {
+    public User(String email, String nickname, String password, String userImage) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
+        this.userImage = userImage;
     }
 }

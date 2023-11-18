@@ -68,7 +68,7 @@ public class SocialController {
                 successMessage,
                 user.getNickname(),
                 user.getEmail(),
-                user.getUserProfileImage(),
+                user.getUserImage(),
                 loginData
         );
 
