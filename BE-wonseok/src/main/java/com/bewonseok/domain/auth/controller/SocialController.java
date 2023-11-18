@@ -1,7 +1,7 @@
 package com.bewonseok.domain.auth.controller;
 
 import com.bewonseok.domain.auth.dto.request.SocialAuthCodeRequestDto;
-import com.bewonseok.domain.auth.dto.response.SocialLoginResponseDto;
+import com.bewonseok.domain.auth.dto.response.LoginResponseDto;
 import com.bewonseok.domain.auth.service.SocialSignInService;
 import com.bewonseok.domain.auth.service.SocialTokenService;
 import com.bewonseok.domain.user.entity.User;
@@ -32,7 +32,7 @@ public class SocialController {
     //프론트 -> 서버로 인가코드 전송
     //서버 - 인가코드 받아와서 유효성 검사
     @PostMapping("")
-    public ResponseEntity<SocialLoginResponseDto> signInWithKakao(
+    public ResponseEntity<LoginResponseDto> signInWithKakao(
             @RequestBody SocialAuthCodeRequestDto authCodeRequestDto) {
 
         String authCode = authCodeRequestDto.getCode();
@@ -50,21 +50,21 @@ public class SocialController {
         return processSocialLogin(user, SuccessMessage.SUCCESS_KAKAO_LOGIN);
     }
 
-    private ResponseEntity<SocialLoginResponseDto> processSocialLogin(User user, String successMessage) {
+    private ResponseEntity<LoginResponseDto> processSocialLogin(User user, String successMessage) {
         // 액세스 토큰 생성
-        String customAccessToken = jwtUtil.createAccessToken(user.getEmail());
+        String customAccessToken = jwtUtil.createToken(user.getEmail());
 
         // 액세스 토큰의 만료 시간 가져오기
         Date expirationDate = jwtUtil.getExpirationDateFromToken(customAccessToken);
 
         // LoginData 생성
-        SocialLoginResponseDto.LoginData loginData = new SocialLoginResponseDto.LoginData(
+        LoginResponseDto.LoginData loginData = new LoginResponseDto.LoginData(
                 customAccessToken,
                 expirationDate
         );
 
         // SocialLoginResponseDto 생성
-        SocialLoginResponseDto loginResponseDto = new SocialLoginResponseDto(
+        LoginResponseDto loginResponseDto = new LoginResponseDto(
                 successMessage,
                 user.getNickname(),
                 user.getEmail(),
