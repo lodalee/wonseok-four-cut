@@ -66,7 +66,7 @@ public class SecurityConfig {
                 authorizeHttpRequests
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
-                        .requestMatchers("/kakao","/user/signup" ).permitAll()
+                        .requestMatchers("/kakao/**", "/user/signup" ).permitAll()
 
                         .anyRequest().authenticated() // 그 외 모든 요청 인증처리
         );
