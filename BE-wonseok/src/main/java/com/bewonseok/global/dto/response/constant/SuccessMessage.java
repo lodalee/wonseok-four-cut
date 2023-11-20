@@ -12,5 +12,6 @@ public class SuccessMessage {
     public static final String BOARD_UPLOAD_SUCCESSFUL = "게시물을 등록하였습니다..";
     public static final String BOARD_UPDATE_SUCCESSFUL = "게시물을 수정하였습니다.";
     public static final String BOARD_DELETE_SUCCESSFUL = "게시물을 삭제하였습니다.";
+    public static final String GET_BOARD_SUCCESSFUL = "게시물 조회에 성공하였습니다.";
 }
 

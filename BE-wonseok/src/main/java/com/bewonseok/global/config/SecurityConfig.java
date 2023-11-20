@@ -1,6 +1,5 @@
 package com.bewonseok.global.config;
 
-import com.bewonseok.domain.user.repository.UserRepository;
 import com.bewonseok.global.jwt.JwtAuthenticationFilter;
 import com.bewonseok.global.jwt.JwtAuthorizationFilter;
 import com.bewonseok.global.jwt.JwtUtil;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -64,6 +64,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((authorizeHttpRequests) ->
                 authorizeHttpRequests
+                        .requestMatchers(HttpMethod.GET,"/board/**").permitAll()
+
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 
                         .requestMatchers("/kakao/**", "/user/signup" ).permitAll()
