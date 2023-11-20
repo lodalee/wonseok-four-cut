@@ -9,6 +9,8 @@ public class SuccessMessage {
     public static final String SUCCESS_KAKAO_LOGIN = "카카오 로그인에 성공하였습니다.";
 
     //board
-    public static final String BOARD_UPLOAD_SUCCESSFUL = "게시물 등록에 성공했습니다.";
+    public static final String BOARD_UPLOAD_SUCCESSFUL = "게시물을 등록하였습니다..";
+    public static final String BOARD_UPDATE_SUCCESSFUL = "게시물을 수정하였습니다.";
+    public static final String BOARD_DELETE_SUCCESSFUL = "게시물을 삭제하였습니다.";
 }
 

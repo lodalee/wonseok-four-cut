@@ -3,14 +3,10 @@ package com.bewonseok.domain.board.entity;
 import com.bewonseok.domain.board.dto.request.BoardRequestDto;
 import com.bewonseok.domain.user.entity.User;
 import com.bewonseok.global.config.Auditing;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -28,17 +24,19 @@ public class Board extends Auditing {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String boardImg;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "board", cascade = {CascadeType.REMOVE})
-    private List<BoardImg> boardImgs = new ArrayList<>();
 
-    public Board(BoardRequestDto requestDto, User user) {
+
+    public Board(BoardRequestDto requestDto, User user, String boardImg) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
         this.user = user;
+        this.boardImg = boardImg;
     }
 }
