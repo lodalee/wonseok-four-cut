@@ -5,19 +5,22 @@ import {
   ItemContainer,
   ItemWrraper,
 } from "@/lib/style/board/board";
-import { DateTime, UsersBoard } from "@/lib/types/response";
+import { BoardGetData } from "@/lib/types/response";
 import { useNavigate } from "react-router-dom";
 
-const BoardListItem: React.FC<UsersBoard> = (props) => {
-  const { uploadImage, title, username, createdAt, id } = props;
+const BoardListItem: React.FC<BoardGetData> = ({ board, user, createAt }) => {
+  const { boardId, boardImg, title } = board;
+  const { nickname } = user;
   const navigate = useNavigate();
-  const convertToJSDate = (dateTime: DateTime): Date => {
-    const [year, month, day, hour, minute, second] = dateTime;
-    return new Date(year, month - 1, day, hour + 9, minute, second, 0);
+  const convertToJSDate = (javaDate: string): Date => {
+    const dateWithoutMicroseconds = javaDate.slice(0, 23);
+    const date = new Date(dateWithoutMicroseconds);
+    date.setHours(date.getHours());
+    return date;
   };
 
-  const getTimeAgo = (dateTime: DateTime): string => {
-    const date = convertToJSDate(dateTime);
+  const getTimeAgo = (javaDate: string): string => {
+    const date = convertToJSDate(javaDate);
     const now = new Date();
 
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
@@ -34,25 +37,21 @@ const BoardListItem: React.FC<UsersBoard> = (props) => {
     navigate(`/board/${Boardid}`);
   };
 
-  const content = (
+  const contents = (
     <BoardItemContainer>
-      <ItemContainer onClick={() => detailNavigateHandler(id)}>
+      <ItemContainer onClick={() => detailNavigateHandler(boardId)}>
         <ItemBox className="itemBox">
-          <img
-            src={uploadImage?.storeFileName}
-            alt="이미지누락"
-            className="board-img"
-          />
+          <img src={boardImg} alt="이미지누락" className="board-img" />
         </ItemBox>
         <div className="ItemContent">
           <div className="content-warrper">
-            <Avatar>{username.split("@")[1].charAt(0)}</Avatar>
+            <Avatar>{nickname.charAt(0)}</Avatar>
             <div className="contents">
               <p className="title">{title}</p>
               <div className="timename">
-                <p className="created">{username}</p>
+                <p className="created">{nickname}</p>
                 <p className="created">
-                  {createdAt ? getTimeAgo(createdAt) : ""}
+                  {createAt ? getTimeAgo(createAt) : ""}
                 </p>
               </div>
             </div>
@@ -62,7 +61,7 @@ const BoardListItem: React.FC<UsersBoard> = (props) => {
     </BoardItemContainer>
   );
 
-  const lastItem = <ItemWrraper>{content}</ItemWrraper>;
+  const lastItem = <ItemWrraper>{contents}</ItemWrraper>;
 
   return <>{lastItem}</>;
 };

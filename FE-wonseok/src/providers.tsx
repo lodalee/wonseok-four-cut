@@ -6,6 +6,8 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ThemeProvider } from "styled-components";
 import { store, persistor } from "./store";
 import theme from "./lib/style/theme";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const queryErrorHandler = (error) => {
@@ -26,9 +28,11 @@ const Providers = ({ children }: { children: ReactNode }) => {
     <QueryClientProvider client={queryClient}>
       <CookiesProvider>
         <Provider store={store}>
-          <PersistGate persistor={persistor}>
-            <ThemeProvider theme={theme}>{children}</ThemeProvider>
-          </PersistGate>
+          <DndProvider backend={HTML5Backend}>
+            <PersistGate persistor={persistor}>
+              <ThemeProvider theme={theme}>{children}</ThemeProvider>
+            </PersistGate>
+          </DndProvider>
         </Provider>
       </CookiesProvider>
     </QueryClientProvider>

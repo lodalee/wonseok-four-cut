@@ -59,7 +59,32 @@ interface UsersBoard {
   modifiedAt: DateTime;
   uploadImage: UploadImage;
 }
+interface PageData {
+  totalPages: number;
+  totalElements: number;
+  size: number;
+}
+interface ResponseData {
+  msg: string;
+  pageable: PageData;
+  result: BoardGetData[];
+}
 
+interface BoardGetData {
+  user: {
+    userId: number;
+    userImg: string | null;
+    nickname: string;
+  };
+  board: {
+    boardId: number;
+    title: string;
+    content: string;
+    boardImg: string | null;
+  };
+  createAt: string;
+  modifiedAt: string;
+}
 interface Comment {
   id: number;
   user: UserInterface;
@@ -104,4 +129,7 @@ export type {
   LoginUserInterface,
   KaKaoLoginResponse,
   responseMessage,
+  ResponseData,
+  PageData,
+  BoardGetData,
 };

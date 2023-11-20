@@ -2,13 +2,19 @@
 import axios from "axios";
 import { serverUser } from "./server";
 import {
+  BoardGetData,
   MyBoardList,
+  ResponseData,
   UserBoardDetails,
-  UsersBoardList,
 } from "@/lib/types/response";
 
-export const getEveryGet = async (): Promise<UsersBoardList> => {
-  const response = await serverUser.get("/api/boards");
+export const getEveryGet = async (): Promise<ResponseData> => {
+  const response = await serverUser.get("/board", {
+    params: {
+      page: 1,
+      limit: 20,
+    },
+  });
   return response.data;
 };
 export const getUserGet = async (): Promise<MyBoardList> => {
@@ -44,7 +50,7 @@ export const getUserTopFive = async (): Promise<MyBoardList> => {
 
 export const getDetailBoard = async (
   boardId: string
-): Promise<UserBoardDetails> => {
-  const response = await serverUser.get(`/api/boards/${boardId}`);
+): Promise<BoardGetData> => {
+  const response = await serverUser.get(`/board/${boardId}`);
   return response.data;
 };

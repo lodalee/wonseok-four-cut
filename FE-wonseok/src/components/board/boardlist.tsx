@@ -17,8 +17,8 @@ const GetBoardList = () => {
   return (
     <GetGalleryListContainer>
       <div className="listPostContainer">
-        {data.map((item) => (
-          <BoardListItem key={item.id} {...item} />
+        {data.result.map((item) => (
+          <BoardListItem key={item.board.boardId} {...item} />
         ))}
       </div>
     </GetGalleryListContainer>
