@@ -42,13 +42,13 @@ const Register = () => {
       }
 
       await signup({
-        username: emailValue,
+        email: emailValue,
         password: passwordValue,
       })
         .then((res) => {
           console.log(res);
           alert("회원가입 완료");
-          navigate("/");
+          navigate("/signin");
         })
         .catch((err) => {
           if (typeof err.response.data.message === "string") {

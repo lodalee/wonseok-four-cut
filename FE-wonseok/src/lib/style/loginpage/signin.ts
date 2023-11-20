@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SignInContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 0.8rem;
   margin: 0 0 15px;
   .h1Space {
     display: flex;
@@ -29,6 +29,22 @@ export const SignInContainer = styled.div`
     line-height: 1.2;
   }
   .signin-form {
+    .login-btn-signidpw {
+      width: 300px;
+      height: 45px;
+      background-color: #00e1db;
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      span {
+        text-align: center;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #1a292e;
+      }
+    }
     .signin-password-container,
     .signin-email-container {
       margin-bottom: 30px;

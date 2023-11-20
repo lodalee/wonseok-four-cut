@@ -10,6 +10,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
       </div>
     );
   }
+  console.log(error);
   const { status } = error.response;
   const { title, content } = getErrorMessage(status);
   const isNotAuthorized = status === 401 || status === 403;
@@ -17,7 +18,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 
   const onClickHandler = () => {
     if (isNotAuthorized) {
-      navigate("/login");
+      navigate("/");
     } else {
       resetErrorBoundary();
     }
@@ -26,7 +27,7 @@ function ErrorFallback({ error, resetErrorBoundary }) {
   return (
     <div className="error-fallback-wrapper">
       <div className="inner">
-        <h2 className="title">{title}</h2>
+        <h2 className="title">{title + error.response.status}</h2>
         <p className="content">{content}</p>
         <button type="button" onClick={onClickHandler}>
           {buttonMessage}

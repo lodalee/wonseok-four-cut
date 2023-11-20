@@ -24,20 +24,31 @@ const SignIn = () => {
     async (e: FormEvent) => {
       e.preventDefault();
       setIsLoading(true);
-      await signin({ password: passwordValue, username: emailValue })
-        .then(() => {
-          dispatch(
-            userSet({ id: emailValue, nickname: passwordValue, token: "asd" })
+      try {
+        const response = await signin({
+          password: passwordValue,
+          email: emailValue,
+        });
+
+        if (response.status === 200) {
+          const { accessToken, expirationDate } = response.data.data;
+          const { email, nickname, userImg } = response.data.user;
+
+          alert(response.data.msg);
+          return dispatch(
+            userSet({
+              email,
+              nickname,
+              picture: userImg ?? null,
+              tokens: { accessToken, expirationDate },
+            })
           );
-        })
-        .catch((err) => {
-          if (typeof err.response.data.message === "string") {
-            alert(`${err.response.data.message}`);
-          } else {
-            alert(`${err.response.data.message[0]}`);
-          }
-        })
-        .finally(() => setIsLoading(false));
+        }
+      } catch (error) {
+        throw new Error("로그인실패");
+      } finally {
+        setIsLoading(false);
+      }
     },
     [emailValue, passwordValue]
   );

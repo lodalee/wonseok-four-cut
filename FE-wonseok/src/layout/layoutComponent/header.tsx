@@ -14,9 +14,17 @@ export const Avatar = styled.div`
   border-radius: 100%;
   background-color: #eee;
   overflow: hidden;
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    object-fit: cover;
+  }
   p {
     font-size: 20px;
     font-weight: 600;
@@ -34,6 +42,7 @@ const Header: React.FC<HeaderProps> = (props) => {
   const user = useAppSelector((state) =>
     Boolean(state.user.tokens.accessToken)
   );
+  const image = useAppSelector((state) => state.user.picture);
   return (
     <HeaderContainer>
       <div className="header-wrraper">
@@ -85,7 +94,7 @@ const Header: React.FC<HeaderProps> = (props) => {
               >
                 {/* <p>{user.split("@")[1].charAt(0)}</p> */}
 
-                {/* <img src="" alt="asd" className="avatar" /> */}
+                <img src={image} alt="asd" className="avatar" />
               </Avatar>
             </>
           )}

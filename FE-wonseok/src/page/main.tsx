@@ -1,9 +1,13 @@
-import { getBoardTopFive, getUserTopFive } from "@/api/get";
+// import { getBoardTopFive, getUserTopFive } from "@/api/get";
+import PreviewMockup from "@/components/home/previewMockup";
 // import Carousel from "@/components/home/caroucel";
 import Previewlist from "@/components/home/previewlist";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { userLogOut } from "@/store/slice/userSlice";
-import { useQuery } from "react-query";
+// import { useAppDispatch } from "@/hooks/useRedux";
+import ErrorFallback from "@/routes/errorBoundary";
+// import { userLogOut } from "@/store/slice/userSlice";
+import { Suspense } from "react";
+import { ErrorBoundary } from "react-error-boundary";
+import { useQueryErrorResetBoundary } from "react-query";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
@@ -15,33 +19,28 @@ const MainContainer = styled.div`
 
 const Main = () => {
   // 이미지 갤러리 , 보드 리스트 프리패치
-  const {
-    data: BoardTopfiveData,
-    isError: BoardTopfiveError,
-    // isLoading: BoardTopfiveLoading,
-    // isFetching: BoardTopfiveIsFetching,
-  } = useQuery("getboardTopFive", getBoardTopFive);
-  const {
-    data: UserTopfiveData,
-    isError: UserTopfiveError,
-    // isLoading: UserTopfiveLoading,
-    // isFetching: UserTopfiveIsFetching,
-  } = useQuery("getuserTopFive", getUserTopFive);
 
-  const dispatch = useAppDispatch();
+  // const {
+  //   data: UserTopfiveData,
+  //   isError: UserTopfiveError,
+  //   // isLoading: UserTopfiveLoading,
+  //   // isFetching: UserTopfiveIsFetching,
+  // } = useQuery("getuserTopFive", getUserTopFive);
+  const { reset } = useQueryErrorResetBoundary();
+  // const dispatch = useAppDispatch();
 
-  if (UserTopfiveError || BoardTopfiveError) {
-    dispatch(userLogOut());
-  }
+  // if (UserTopfiveError || BoardTopfiveError) {
+  //   // dispatch(userLogOut());
+  // }
   return (
     <MainContainer>
       {/* <Carousel images={WantedImg} /> */}
-      {BoardTopfiveData && UserTopfiveData && (
-        <>
-          <Previewlist title={"내 갤러리"} list={UserTopfiveData} />
-          <Previewlist title={"전체 게시물"} list={BoardTopfiveData} />
-        </>
-      )}
+      <ErrorBoundary FallbackComponent={ErrorFallback} onReset={reset}>
+        <Suspense fallback={<PreviewMockup />}>
+          {/* <Previewlist title={"내 갤러리"} list={UserTopfiveData} /> */}
+          <Previewlist />
+        </Suspense>
+      </ErrorBoundary>
     </MainContainer>
   );
 };
