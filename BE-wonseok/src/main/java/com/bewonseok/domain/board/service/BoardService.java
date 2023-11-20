@@ -44,62 +44,45 @@ public class BoardService {
     }
 
     //게시물 수정
-    public CustomResponseDto updatedBoard(Long boardId, Board updatedBoard, Long userId) {
+    public CustomResponseDto updatedBoard(Long id, Board updatedBoard, Long userId) {
+        Board board = findBoard(id);
 
-        Optional<Board> optionalBoard = boardRepository.findById(boardId);
-
-        if (optionalBoard.isPresent()){
-            Board board = optionalBoard.get();
-
-            if (!userId.equals(board.getUser().getId())){
-                throw new CustomRuntimeException(ErrorMessage.NOT_POST_OWNER, HttpStatus.BAD_REQUEST);
-            }
-
-            if (updatedBoard.getTitle() !=null){
-                board.setTitle(updatedBoard.getTitle());
-            }
-
-            if (updatedBoard.getContent() != null){
-                board.setContent(updatedBoard.getContent());
-            }
-
-            boardRepository.save(board);
-
-            return new CustomResponseDto(SuccessMessage.BOARD_UPDATE_SUCCESSFUL, HttpStatus.OK);
-        } else {
-            throw new CustomRuntimeException(ErrorMessage.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND);
+        if (!userId.equals(board.getUser().getId())){
+            throw new CustomRuntimeException(ErrorMessage.NOT_POST_OWNER, HttpStatus.BAD_REQUEST);
         }
+
+        if (updatedBoard.getTitle() !=null){
+            board.setTitle(updatedBoard.getTitle());
+        }
+
+        if (updatedBoard.getContent() != null){
+            board.setContent(updatedBoard.getContent());
+        }
+
+        boardRepository.save(board);
+
+        return new CustomResponseDto(SuccessMessage.BOARD_UPDATE_SUCCESSFUL, HttpStatus.OK);
     }
 
     //게시물 삭제
-    public CustomResponseDto deleteBoard(Long boardId, Long userId) {
+    public CustomResponseDto deleteBoard(Long id, Long userId) {
+        Board board = findBoard(id);
 
-        Optional<Board> optionalBoard = boardRepository.findById(boardId);
-
-        if (optionalBoard.isPresent()){
-            Board board = optionalBoard.get();
-
-            if (!userId.equals(board.getUser().getId())){
-                throw new CustomRuntimeException(ErrorMessage.NOT_POST_OWNER, HttpStatus.BAD_REQUEST);
-            }
-
-            String fileName = board.getBoardImg().substring(board.getBoardImg().lastIndexOf("/") + 1);
-            s3Service.deleteFileFromS3("board_img/" + fileName);
-
-            boardRepository.delete(board);
-            return new CustomResponseDto(SuccessMessage.BOARD_DELETE_SUCCESSFUL, HttpStatus.OK);
-        } else {
-            throw new CustomRuntimeException(ErrorMessage.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND);
+        if (!userId.equals(board.getUser().getId())){
+            throw new CustomRuntimeException(ErrorMessage.NOT_POST_OWNER, HttpStatus.BAD_REQUEST);
         }
+
+        String fileName = board.getBoardImg().substring(board.getBoardImg().lastIndexOf("/") + 1);
+        s3Service.deleteFileFromS3("board_img/" + fileName);
+
+        boardRepository.delete(board);
+        return new CustomResponseDto(SuccessMessage.BOARD_DELETE_SUCCESSFUL, HttpStatus.OK);
     }
 
 
     //게시물 조회
     public BoardResponseDto getOneBoard(Long id) {
-        Board board = boardRepository.findById(id)
-                .orElseThrow(
-                        () -> new CustomRuntimeException(ErrorMessage.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
-
+        Board board = findBoard(id);
 
         BoardUserResponseDto user = new BoardUserResponseDto(board.getUser().getId(), board.getUser().getUserImage());
         BoardInfoResponseDto boardInfoResponseDto = new BoardInfoResponseDto(board.getId(), board.getTitle(), board.getContent(), board.getBoardImg());
@@ -130,5 +113,10 @@ public class BoardService {
                 boards.getTotalElements(),
                 size,
                 boardResponseDto);
+    }
+
+    public Board findBoard(Long id){
+        return boardRepository.findById(id).orElseThrow(() ->
+        new CustomRuntimeException(ErrorMessage.BOARD_NOT_FOUND, HttpStatus.NOT_FOUND));
     }
 }
