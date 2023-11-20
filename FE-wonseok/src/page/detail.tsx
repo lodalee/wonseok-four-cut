@@ -14,7 +14,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 const Detail = () => {
   const { id } = useParams();
-  const user = useAppSelector((state) => state.user.id);
+  const user = useAppSelector((state) => state.user.email);
   const {
     data: images,
     isSuccess,

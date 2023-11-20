@@ -17,11 +17,11 @@ const Board = () => {
       });
   return (
     <BoardContainer>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <Suspense fallback={<MockUpcontent />}>
-          <GetBoardList />
-        </Suspense>
-      </ErrorBoundary>
+      {/* <ErrorBoundary FallbackComponent={ErrorFallback}> */}
+      <Suspense fallback={<MockUpcontent />}>
+        <GetBoardList />
+      </Suspense>
+      {/* </ErrorBoundary> */}
     </BoardContainer>
   );
 };
