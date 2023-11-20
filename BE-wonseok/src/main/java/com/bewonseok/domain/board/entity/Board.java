@@ -39,4 +39,11 @@ public class Board extends Auditing {
         this.user = user;
         this.boardImg = boardImg;
     }
+
+    public Board(Long boardId, String title, String content, String boardImg){
+        this.id = boardId;
+        this.title = title;
+        this.content = content;
+        this.boardImg = boardImg;
+    }
 }

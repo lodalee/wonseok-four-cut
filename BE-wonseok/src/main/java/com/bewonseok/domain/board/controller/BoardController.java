@@ -1,6 +1,8 @@
 package com.bewonseok.domain.board.controller;
 
 import com.bewonseok.domain.board.dto.request.BoardRequestDto;
+import com.bewonseok.domain.board.dto.response.BoardResponseDto;
+import com.bewonseok.domain.board.dto.response.PageBoardResponseDto;
 import com.bewonseok.domain.board.entity.Board;
 import com.bewonseok.domain.board.service.BoardService;
 import com.bewonseok.domain.user.entity.User;
@@ -64,8 +66,21 @@ public class BoardController {
     }
 
     //게시물 조회
+    @GetMapping("/{board_id}")
+    public BoardResponseDto getOneBoard(
+            @PathVariable Long board_id){
+        return boardService.getOneBoard(board_id);
+    }
 
     //게시물 전체 조회
+    @GetMapping("")
+    public PageBoardResponseDto getBoards(
+            @RequestParam int page,
+            @RequestParam("limit") int size
+
+    ){
+        return boardService.getBoards(page-1, size);
+    }
 
     //게시물 좋아요
 }
